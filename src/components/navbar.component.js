@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class Navbar extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            user: 'USERNAME'
+        }
+    }
 
     render() {
         return (
@@ -16,7 +23,19 @@ export default class Navbar extends Component {
                         <Link to="/create" className="nav-link">Create Exercise Log</Link>
                     </li>
                     <li className="navbar-item">
-                        <Link to="/user" className="nav-link">Create USer</Link>
+                        <Link to="/user" className="nav-link">Create User</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link to="/login" className="nav-link">Register Account</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link to="/loginfirst" className="nav-link">Log In</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link to="/pickyfinderhome" className="nav-link">Picky Finder Home Page</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link to="/addevent" className="nav-link">Add Event</Link>
                     </li>
                 </ul>
                 </div>

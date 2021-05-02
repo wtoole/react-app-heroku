@@ -24,7 +24,7 @@ export default class CreateUsers extends Component {
         e.preventDefault();
 
         const user = {
-            username: this.state.username
+            username: this.state.username,
         }
 
         console.log(user);
