@@ -33,7 +33,7 @@ export default class ExercisesList extends Component {
             console.log(error);
         })
 
-        window.location = '/login'
+        window.location = '/prehomepage'
     }
 
     deleteExercise(id) {
