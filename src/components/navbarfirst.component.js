@@ -12,10 +12,13 @@ export default class NavbarFirst extends Component {
 
     render() {
         return (
+            
             <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-                <Link to="/login" className="navbar-brand">Picky Finder</Link>
                 <div className="collapse navbar-collapse">
                 <ul className="navbar-nav mr-auto">
+                    <li>
+                    <a href="/prehomepage"><img src="https://i.imgur.com/Z6zj9FE.png" alt="logo" width="40" height="40"/></a>
+                    </li>
                     <li className="navbar-item">
                         <Link to="/login" className="nav-link">Register Account</Link>
                     </li>
