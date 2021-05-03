@@ -17,7 +17,7 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <Navbar />
+
         <br/>
         <Route path="/" exact component={ExercisesList} />
         <Route path="edit/:id" compnent={EditExercise} />

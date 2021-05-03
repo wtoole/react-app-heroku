@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import NavbarFirst from "../components/navbarfirst.component";
+
 
 
 
@@ -73,7 +75,8 @@ export default class LoginFirst extends Component {
             if(this.state.taken){
                 alert("Good! this username is in the database");
                 if(response.data[index].password == user.password){
-                    alert("And the password matches!")
+                    alert("And the password matches!");
+                    window.location = '/pickyfinderhome';
                 }else{
                     alert("Sorry but the password does not match");
                 }
@@ -107,6 +110,8 @@ export default class LoginFirst extends Component {
     render() {
         return (
             <div>
+                <NavbarFirst />
+                <br></br>
                 <h3>Login To Your Account</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">

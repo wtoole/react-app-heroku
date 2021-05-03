@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-export default class Navbar extends Component {
+export default class NavbarFirst extends Component {
     constructor() {
         super();
 
@@ -13,18 +13,18 @@ export default class Navbar extends Component {
     render() {
         return (
             <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-                <Link to="/pickyfinderhome" className="navbar-brand">Picky Finder</Link>
+                <Link to="/login" className="navbar-brand">Picky Finder</Link>
                 <div className="collapse navbar-collapse">
                 <ul className="navbar-nav mr-auto">
                     <li className="navbar-item">
-                        <Link to="/pickyfinderhome" className="nav-link">Picky Finder Home Page</Link>
+                        <Link to="/login" className="nav-link">Register Account</Link>
                     </li>
                     <li className="navbar-item">
-                        <Link to="/addevent" className="nav-link">Add Event</Link>
+                        <Link to="/loginfirst" className="nav-link">Log In</Link>
                     </li>
                 </ul>
                 </div>
             </nav>
         );
     }
-}
+} 

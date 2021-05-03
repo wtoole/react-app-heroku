@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Navbar from "../components/navbar.component";
 
 
 
@@ -115,6 +116,8 @@ export default class AddEvent extends Component {
     render() {
         return (
             <div>
+                <Navbar />
+                 <br></br>
                 <h3>Add an Event</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">

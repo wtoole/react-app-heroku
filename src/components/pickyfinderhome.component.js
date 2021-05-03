@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Navbar from "../components/navbar.component";
 
 const Event = props => (
     <tr>
@@ -92,7 +93,9 @@ export default class EventList extends Component {
     render() {
         return (
             <div>
-                <h3>Logged Exercises</h3>
+                 <Navbar />
+                 <br></br>
+                <h3>Available Pick-up games</h3>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>

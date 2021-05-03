@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import NavbarFirst from "../components/navbarfirst.component";
 
 
 
@@ -86,6 +87,7 @@ export default class Login extends Component {
                     alert("Congrats "+ user.username+", you just created your acocunt!")
                     axios.post('http://localhost:5000/login/add', user)
                     .then(res => console.log(res.data));
+                    window.location = '/loginfirst';
                     
                 }
 
@@ -117,6 +119,8 @@ export default class Login extends Component {
     render() {
         return (
             <div>
+                <NavbarFirst />
+                <br></br>
                 <h3>Register Your Account</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
