@@ -9,7 +9,11 @@ const eventSchema = new Schema({
     directions: {type: String, required: true},
     minPlayers: {type: Number, required: true},
     maxPlayers: {type: Number, required: true},
-    date: {type: Date, required: true}
+    date: {type: Date, required: true},
+    numPlayers: {type: Number, required: true},
+    playerList: {type: [String], required: true},
+    time: {type: String, required: true},
+    idnum: {type: Number, required: true}
 }, {
     timestamps: true,
 });

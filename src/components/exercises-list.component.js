@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const Exercise = props => (
     <tr>
+        <td><input type="submit" value="Join Event!" className="btn btn-primary" /></td>
         <td>{props.exercise.username}</td>
         <td>{props.exercise.description}</td>
         <td>{props.exercise.duration}</td>
@@ -31,6 +32,8 @@ export default class ExercisesList extends Component {
         .catch((error) => {
             console.log(error);
         })
+
+        window.location = '/login'
     }
 
     deleteExercise(id) {

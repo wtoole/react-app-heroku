@@ -11,12 +11,12 @@ import Login from "./components/login.component";
 import LoginFirst from "./components/loginfirst.component";
 import PickyFinderHome from "./components/pickyfinderhome.component";
 import AddEvent from "./components/addevent.component";
-
+import EditEvent from "./components/editevent.component"
 
 function App() {
   return (
     <Router>
-      <div className="container">
+      <div>
 
         <br/>
         <Route path="/" exact component={ExercisesList} />
@@ -27,6 +27,7 @@ function App() {
         <Route path="/loginfirst" component={LoginFirst} />
         <Route path="/pickyfinderhome" component={PickyFinderHome} />
         <Route path="/addevent" component={AddEvent} />
+        <Route path="/edit" component={EditEvent} />
         </div>
     </Router>
   );

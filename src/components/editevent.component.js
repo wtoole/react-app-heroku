@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Navbar from "../components/navbar.component";
+import { isCompositeComponent } from 'react-dom/test-utils';
 
 
 
 
-export default class AddEvent extends Component {
+export default class EditEvent extends Component {
     
     constructor(props) {
         super(props);
@@ -17,6 +18,7 @@ export default class AddEvent extends Component {
         this.onChangeMaxPlayers = this.onChangeMaxPlayers.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onChangeTime = this.onChangeTime.bind(this);
+        this.onChangeYourName = this.onChangeYourName.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -25,16 +27,40 @@ export default class AddEvent extends Component {
             directions: '',
             minPlayers: 0,
             maxPlayers: 0,
+            numPlayers: 0,
             date: new Date(),
-            idnum: -1
+            idnum: -1,
+            playerList: [],
+            yourName: ''
         }
     }
 
     componentDidMount() {
+
+        console.log(this.state.yourName);
+
         axios.get('http://localhost:5000/addevent/')
         .then(response => {
             var list = response.data;
             this.setState({idnum: list[list.length - 1].idnum + 1});
+            var str = String(this.props.location.pathname);
+            str = str.substring(6,30);
+            for(var i = 0; i<list.length; i++){
+                if(list[i]._id == str){
+                    this.setState({numPlayers: list[i].numPlayers,
+                                    eventName: list[i].eventName,
+                                    description: list[i].description,
+                                    directions: list[i].directions,
+                                    minPlayers: list[i].minPlayers,
+                                    maxPlayers: list[i].maxPlayers,
+                                    date: list[i].date,
+                                    idnum: list[i].idnum,
+                                    time: list[i].time,
+                                    playerList: list[i].playerList
+                                    });
+                }
+            }
+
         })
         .catch((error) => {
             console.log(error);
@@ -44,6 +70,12 @@ export default class AddEvent extends Component {
     onChangeEventName(e) {
         this.setState({
             eventName: e.target.value
+        });
+    }
+
+    onChangeYourName(e) {
+        this.setState({
+            yourName: e.target.value
         });
     }
 
@@ -93,19 +125,29 @@ export default class AddEvent extends Component {
             minPlayers: this.state.minPlayers,
             maxPlayers: this.state.maxPlayers,
             date: this.state.date,
-            numPlayers: 0,
-            playerList: [],
+            numPlayers: this.state.numPlayers + 1,
+            playerList: this.state.playerList,
             time: this.state.time,
-            idnum: this.state.idnum
+            idnum: 0
         }
 
+        console.log(this.state.yourName);
+        event.playerList.push(this.state.yourName);
+        event.playerList.push(', ');
+
         console.log(event);
-        console.log(this.state);
-        axios.post('http://localhost:5000/addevent/add', event)
+        var str = String(this.props.location.pathname);
+        str = str.substring(6,30);
+        console.log(str);
+        var idd = str;
+
+        
+
+        axios.post('http://localhost:5000/addevent/update/'+idd, event)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
 
-        alert("Good Work! You just created an event!");
+        alert("Good Work! You just joined the event!");
 
 
 
@@ -119,9 +161,7 @@ export default class AddEvent extends Component {
             time: '00:00'
         })
 
-        
         window.location = '/pickyfinderhome'
-
     }
 
 
@@ -132,68 +172,23 @@ export default class AddEvent extends Component {
             <div>
                 <Navbar />
                  <br></br>
-                <h3>Add an Event</h3>
+                <h3>Join Event</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                     <br></br>
-                        <label>Event Name</label>
+                        <label>If you would like to join the <b>{this.state.eventName}</b> event with the following details: <b>{this.state.description}</b></label>
+                        <br></br>
+                        <p>Just enter your name below and press the button to join the game!</p>
                         <input type="text"
                             required
                             className="form-control"
-                            value={this.state.eventName}
-                            onChange={this.onChangeEventName}
+                            value={this.state.yourName}
+                            onChange={this.onChangeYourName}
                             />
-                            <br></br>
-                        <label>Description</label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.description}
-                            onChange={this.onChangeDescription}
-                            />
-                            <br></br>
-                        <label>Directions</label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.directions}
-                            onChange={this.onChangeDirections}
-                            />
-                            <br></br>
-                        <label>Minimum Players (if this field does not matter leave at 0)</label>
-                        <input type="number"
-                            required
-                            className="form-control"
-                            value={this.state.minPlayers}
-                            onChange={this.onChangeMinPlayers}
-                            />
-                            <br></br>
-                        <label>Maximum Players (if this field does not matter leave at 0)</label>
-                        <input type="number"
-                            required
-                            className="form-control"
-                            value={this.state.maxPlayers}
-                            onChange={this.onChangeMaxPlayers}
-                            />
-                            <br></br>
-                        <label>Time</label>
-                        <input type="time"
-                            required
-                            className="form-control"
-                            value={this.state.time}
-                            onChange={this.onChangeTime}
-                            />
-                            <br></br>
-                        <label>Date</label>
-                        <input type="Date"
-                            required
-                            className="form-control"
-                            value={this.state.date}
-                            onChange={this.onChangeDate}
-                            />
+                         
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Add an Event to Picky Finder!" className="btn btn-primary" />
+                        <input type="submit" value="Join The Game!" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

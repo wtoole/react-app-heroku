@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Navbar from "../components/navbar.component";
+import {Link} from 'react-router-dom'
 
 const Event = props => (
+    
     <tr>
+        <td><Link to ={"/edit/"+props.event._id}>Join</Link></td>
         <td>{props.event.eventName}</td>
         <td>{props.event.description}</td>
         <td>{props.event.directions}</td>
         <td>{props.event.minPlayers}</td>
         <td>{props.event.maxPlayers}</td>
+        <td>{props.event.numPlayers}</td>
+        <td>{props.event.playerList}</td>
+        <td>{props.event.time}</td>
         <td>{props.event.date.substring(0,10)}</td>
+        
     </tr>
 )
 
@@ -22,6 +29,8 @@ export default class EventList extends Component {
         this.state = {events: []};
     }
 
+    
+  
  
 
     componentDidMount() {
@@ -48,15 +57,13 @@ export default class EventList extends Component {
                 eventYear = Number(list[i].date.substring(0,4));
                 eventMonth = Number(list[i].date.substring(5,7));
                 eventDay = Number(list[i].date.substring(8,10));
-                console.log(eventMonth);
-                console.log(dnowMonth);
+                
 
                 
                 if(eventYear < dnowYear){
                     list.splice(i,1);
                     i--;
                 }else if(eventYear == dnowYear && eventMonth < dnowMonth){
-                    console.log("Here 1");
                     list.splice(i,1);
                     i--;
                 }else if(eventYear == dnowYear && eventMonth == dnowMonth && eventDay < dnowDay){
@@ -74,12 +81,14 @@ export default class EventList extends Component {
             }
         
             
-            console.log(list);
             this.setState({ events: list});
+            
         })
         .catch((error) => {
             console.log(error);
         })
+
+        console.log(this.state.events);
     }
 
     eventList() {
@@ -88,26 +97,66 @@ export default class EventList extends Component {
         })
     }
 
+    alert(){
+        var ID = prompt("Enter the ID of the game you will attend");
+    }
 
+    join(){
+        var ID = prompt("Enter the ID of the game you will attend");
+        var name = prompt("Enter your name");
+        alert(name);
+        const event = {
+            eventName: "EDITtest",
+            description: "test",
+            directions: "test",
+            minPlayers: 1,
+            maxPlayers: 2,
+            date: new Date(),
+            numPlayers: 0,
+            playerList: [],
+            time: "00:00",
+            idnum: 199
+        }
+
+        axios.post('http://localhost:5000/addevent/update/101')
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
+
+        axios.post('http://localhost:5000/addevent/add', event)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+
+        window.location = '/pickyfinderhome'
+    }
+
+   
+
+    
 
     render() {
         return (
+          
             <div>
                  <Navbar />
                  <br></br>
-                <h3>Available Pick-up games</h3>
+                <h3>Available Pick-up games </h3>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
+                            <th></th>
                             <th>Event Name</th>
                             <th>Description</th>
                             <th>Directions</th>
                             <th>Min PLayers</th>
                             <th>Max PLayers</th>
+                            <th>Current Number of Players</th>
+                            <th>Current Players</th>
+                            <th>Time</th>
                             <th>Date</th>
                         </tr>
                     </thead>
                     <tbody>
+                        
                         { this.eventList() }
                     </tbody>
                 </table>
